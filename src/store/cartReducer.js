@@ -1,5 +1,5 @@
-export function ADD_PRODUCT (pid, qty = 1) {
-    return { type: 'add/product', payload: {productId: pid, quantity: qty }};
+export function ADD_PRODUCT ({ pid, title, rating, price, imageUrl, qty }) {
+    return { type: 'add/product', payload: { productId: pid, title: title, rating: rating.rate, price: price, image: imageUrl, quantity: qty }};
 }
 
 export function REMOVE_PRODUCT (pid, qty) {
@@ -19,7 +19,18 @@ const InitialState = [];
 export default function cartReducer (state = InitialState, action) {
     switch (action.type) {
         case 'add/product':
+
+            let existingItem = state.find(state => state.productId === action.payload.productId);
+
+            if(existingItem) {
+                return state.map((i, idx) => {
+                    if(i.productId === action.payload.productId) {
+                        return {...i, quantity : i.quantity + 1};
+                    }
+                })
+            }
             return [...state, action.payload]
+            
         case 'remove/product':
             return state.filter((item) => {
                 return item.productId !== action.payload.productId
