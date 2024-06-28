@@ -9,6 +9,8 @@ export default function Cart() {
         return state.cartItem;
     })
 
+    let totalValue = cartItems.length && cartItems.reduce((old, current) => old + current.quantity * current.price, 0)
+
     return (
 
         <>
@@ -28,6 +30,7 @@ export default function Cart() {
                         {cartItems.map(({ productId, title, rating, price, image, quantity }) => (
                             <CartItem
                                 key={productId}
+                                pid={productId}
                                 title={title}
                                 price={price}
                                 quantity={quantity}
@@ -39,7 +42,7 @@ export default function Cart() {
                             <div></div>
                             <div></div>
                             <div></div>
-                            <div className="total">$500</div>
+                            <div className="total">${totalValue}</div>
                         </div>
                     </div>
                 </div>

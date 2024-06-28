@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux';
 export default function Header() {
 
     let productCount = useSelector((state) => {
-        return state.cartItem.length
+        return state.cartItem.reduce((old, current) => old + current.quantity, 0);           
     })
 
     return (

@@ -22,7 +22,7 @@ export default function Product({ pid, title, rating, price, imageUrl }) {
             </div>
             <div className="cta-container">
                 <button onClick={ () =>  dispatch(ADD_PRODUCT({ pid, title, rating, price, imageUrl, qty: 1 }))}>Add to Cart</button>
-                <button>Buy Now</button>
+                <button>Add to Wishlist</button>
             </div>
         </div>
     )
