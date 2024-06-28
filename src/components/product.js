@@ -1,4 +1,15 @@
-export default function Product({ title, rating, price, imageUrl }) {
+import { ADD_PRODUCT } from '../store/cartReducer';
+import { useDispatch } from 'react-redux';
+
+
+export default function Product({ pid, title, rating, price, imageUrl }) {
+
+    let dispatch = useDispatch();
+
+    // const cartHandler = (productID) => {
+    //     console.log('productID', productID);
+    // }
+
     return (
         <div className="product">
             <div className="product-image">
@@ -14,7 +25,9 @@ export default function Product({ title, rating, price, imageUrl }) {
                 <p className="price">{price}</p>
             </div>
             <div className="cta-container">
-                <button>Add to Cart</button>
+                <button onClick={() => {
+                    dispatch(ADD_PRODUCT(pid))
+                }}>Add to Cart</button>
                 <button>Buy Now</button>
             </div>
         </div>

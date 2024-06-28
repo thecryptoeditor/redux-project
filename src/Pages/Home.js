@@ -14,19 +14,20 @@ export default function Home () {
             <Header />
 
             <div className="product-listing">
-            <div>
-            {
-                productList.map(({id, title, rating, price, image}) => (
-                    <Product 
-                        key={id}
-                        title={title} 
-                        rating={rating} 
-                        price={price}
-                        imageUrl={image}
-                    />
-                ))
-            }
-        </div>
+                <div>
+                    {
+                        productList.map(({id, title, rating, price, image}) => (
+                            <Product 
+                                key={id}
+                                pid={id}
+                                title={title} 
+                                rating={rating} 
+                                price={price}
+                                imageUrl={image}
+                            />
+                        ))
+                    }
+                </div>
             </div>
         </>
     )

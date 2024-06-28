@@ -1,4 +1,4 @@
-export function ADD_PRODUCT (pid, qty) {
+export function ADD_PRODUCT (pid, qty = 1) {
     return { type: 'add/product', payload: {productId: pid, quantity: qty }};
 }
 
@@ -14,19 +14,20 @@ export function REDUCE_PRODUCT_QUANTITY (pid, qty) {
     return { type: 'reduce/productQuantity', payload: {productId: pid, quantity: qty }};
 }
 
+const InitialState = [];
 
-export default function cartReducer (state = [], action) {
+export default function cartReducer (state = InitialState, action) {
     switch (action.type) {
         case 'add/product':
             return [...state, action.payload]
         case 'remove/product':
             return state.filter((item) => {
-                return item.productId != action.payload.productId
+                return item.productId !== action.payload.productId
             })
         case 'add/productQuantity':
             return state.map((item) => {
 
-                if(item.productId == action.payload.productId) {
+                if(item.productId === action.payload.productId) {
                     return { ...item, quantity: item.quantity + action.payload.quantity}
                 }
 
@@ -35,7 +36,7 @@ export default function cartReducer (state = [], action) {
         case 'reduce/productQuantity':
             return state.map((item) => {
 
-                if(item.productId == action.payload.productId) {
+                if(item.productId === action.payload.productId) {
                     return { ...item, quantity: item.quantity - action.payload.quantity}
                 }
 
