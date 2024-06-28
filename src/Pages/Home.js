@@ -1,7 +1,7 @@
 import React from 'react';
-import Header from '../components/header';
+import Header from '../components/Header';
 import { useSelector } from 'react-redux';
-import Product from './components/product.js';
+import Product from '../components/product.js';
 
 export default function Home () {
 
@@ -13,7 +13,7 @@ export default function Home () {
         <>
             <Header />
 
-            <div class="product-listing">
+            <div className="product-listing">
             <div>
             {
                 productList.map(({id, title, rating, price, image}) => (

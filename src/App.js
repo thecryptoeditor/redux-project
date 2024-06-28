@@ -1,6 +1,6 @@
 import Home from './Pages/Home';
 import Cart from './Pages/Cart';
-import { RouterProvider, createBrowserRouter } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
 function App() {
 
@@ -8,7 +8,7 @@ function App() {
         <div className="App">
             <Routes>
                 <Route path="/" element={<Home />} />
-                <Route path="about" element={<Cart />} />
+                <Route path="cart" element={<Cart />} />
             </Routes>
         </div>
     );
