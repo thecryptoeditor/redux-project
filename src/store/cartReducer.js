@@ -27,6 +27,7 @@ export default function cartReducer (state = InitialState, action) {
                     if(i.productId === action.payload.productId) {
                         return {...i, quantity : i.quantity + 1};
                     }
+                    return i;
                 })
             }
             return [...state, action.payload]
