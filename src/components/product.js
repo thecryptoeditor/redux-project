@@ -1,4 +1,4 @@
-import { ADD_PRODUCT } from '../store/cartReducer';
+import { ADD_PRODUCT } from '../store/slice/cartSlice';
 import { useDispatch } from 'react-redux';
 
 
