@@ -1,3 +1,4 @@
+// Action creator
 export function ADD_PRODUCT ({ pid, title, rating, price, imageUrl, qty }) {
     return { type: 'add/product', payload: { productId: pid, title: title, rating: rating.rate, price: price, image: imageUrl, quantity: qty }};
 }
@@ -16,6 +17,8 @@ export function REDUCE_PRODUCT_QUANTITY (pid, qty) {
 
 const InitialState = [];
 
+
+// Reducer
 export default function cartReducer (state = InitialState, action) {
     switch (action.type) {
         case 'add/product':
