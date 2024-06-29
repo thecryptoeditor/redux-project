@@ -1,60 +1,55 @@
-export function ADD_PRODUCT ({ pid, title, rating, price, imageUrl, qty }) {
-    return { type: 'add/product', payload: { productId: pid, title: title, rating: rating.rate, price: price, image: imageUrl, quantity: qty }};
+import { produce } from 'immer';
+
+export function ADD_PRODUCT({ pid, title, rating, price, imageUrl, qty }) {
+    return { type: 'add/product', payload: { productId: pid, title: title, rating: rating.rate, price: price, image: imageUrl, quantity: qty } };
 }
 
-export function REMOVE_PRODUCT (pid, qty) {
-    return { type: 'remove/product', payload: {productId: pid, quantity: qty }};
+export function REMOVE_PRODUCT(pid) {
+    return { type: 'remove/product', payload: { productId: pid } };
 }
 
-export function ADD_PRODUCT_QUANTITY (pid, qty) {
-    return { type: 'add/productQuantity', payload: {productId: pid, quantity: qty }};
+export function ADD_PRODUCT_QUANTITY(pid, qty) {
+    return { type: 'add/productQuantity', payload: { productId: pid, quantity: qty } };
 }
 
-export function REDUCE_PRODUCT_QUANTITY (pid, qty) {
-    return { type: 'reduce/productQuantity', payload: {productId: pid, quantity: qty }};
+export function REDUCE_PRODUCT_QUANTITY(pid, qty) {
+    return { type: 'reduce/productQuantity', payload: { productId: pid, quantity: qty } };
 }
 
-const InitialState = [];
+export default function cartReducer(originalState = [], action) {
 
-export default function cartReducer (state = InitialState, action) {
-    switch (action.type) {
-        case 'add/product':
+    return produce(originalState, (state) => {
 
-            let existingItem = state.find(state => state.productId === action.payload.productId);
+        let existingItem = state.findIndex(state => state.productId === action.payload.productId);
 
-            if(existingItem) {
-                return state.map((i, idx) => {
-                    if(i.productId === action.payload.productId) {
-                        return {...i, quantity : i.quantity + 1};
-                    }
-                    return i;
-                })
-            }
-            return [...state, action.payload]
-            
-        case 'remove/product':
-            return state.filter((item) => {
-                return item.productId !== action.payload.productId
-            })
-        case 'add/productQuantity':
-            return state.map((item) => {
-
-                if(item.productId === action.payload.productId) {
-                    return { ...item, quantity: item.quantity + action.payload.quantity}
+        switch (action.type) {
+            case 'add/product':
+                if (existingItem !== -1) {
+                    state[existingItem].quantity += 1;
+                    return state;
                 }
+                state.push({ ...action.payload });
+                break;
 
-                return item;
-            })
-        case 'reduce/productQuantity':
-            return state.map((item) => {
-
-                if(item.productId === action.payload.productId) {
-                    return { ...item, quantity: item.quantity - action.payload.quantity}
+            case 'remove/product':
+                state.splice(existingItem, 1)
+                break;
+            case 'add/productQuantity':
+                if (existingItem !== -1) {
+                    state[existingItem].quantity += 1
+                    return state;
                 }
+                break;
+            case 'reduce/productQuantity':
+                if (existingItem !== -1) {
+                    state[existingItem].quantity -= 1;
+                    return state;
+                }
+                break;
+            default:
+                return state;
+        }
+        return state;
 
-                return item;
-            })
-        default:
-            return state;
-    }
+    })
 }
