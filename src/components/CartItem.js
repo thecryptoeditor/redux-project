@@ -1,21 +1,21 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { ADD_PRODUCT_QUANTITY, REDUCE_PRODUCT_QUANTITY, REMOVE_PRODUCT } from '../store/slice/cartSlice'
+import { addProductQuantity, reduceProductQuantity, removeProduct } from '../store/slice/cartSlice'
 
 export default function CartItem({ pid, title, rating, price, imageUrl, quantity }) {
 
     let dispatch = useDispatch();
 
     function decreaseItem(pid) {
-        dispatch(REDUCE_PRODUCT_QUANTITY(pid, 1));
+        dispatch(reduceProductQuantity(pid, 1));
     }
 
     function increaseItem(pid) {
-        dispatch(ADD_PRODUCT_QUANTITY(pid, 1));
+        dispatch(addProductQuantity(pid, 1));
     }
 
     function removeItem(pid) {
-        dispatch(REMOVE_PRODUCT(pid))
+        dispatch(removeProduct(pid))
     }
 
     return (
