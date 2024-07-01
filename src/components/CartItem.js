@@ -7,15 +7,15 @@ export default function CartItem({ pid, title, rating, price, imageUrl, quantity
     let dispatch = useDispatch();
 
     function decreaseItem(pid) {
-        dispatch(reduceProductQuantity(pid, 1));
+        dispatch(reduceProductQuantity({pid: pid, quantity: 1}));
     }
 
     function increaseItem(pid) {
-        dispatch(addProductQuantity(pid, 1));
+        dispatch(addProductQuantity({pid: pid, quantity: 1}));
     }
 
     function removeItem(pid) {
-        dispatch(removeProduct(pid))
+        dispatch(removeProduct({pid}))
     }
 
     return (

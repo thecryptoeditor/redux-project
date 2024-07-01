@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 export default function Cart() {
 
     let cartItems = useSelector((state) => {
+        console.log(state)
         return state.cartItem;
     })
 
@@ -27,16 +28,16 @@ export default function Cart() {
                             <div className="quantity">Quantity</div>
                             <div className="total">Total</div>
                         </div>
-                        { cartItems.map(({ productId, title, rating, price, image, quantity }) => (
+                        { cartItems.map(({ pid, title, rating, price, imageUrl, quantity }) => (
                             quantity > 0 ?
                             <CartItem
-                                key={productId}
-                                pid={productId}
+                                key={pid}
+                                pid={pid}
                                 title={title}
                                 price={price}
                                 quantity={quantity}
-                                imageUrl={image}
-                                rating={rating}
+                                imageUrl={imageUrl}
+                                rating={rating.rate}
                             /> : null 
                         ))}
                         <div className="cart-header cart-item-container">

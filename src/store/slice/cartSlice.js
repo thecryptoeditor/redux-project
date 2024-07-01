@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit' 
 
-function findIndex(state, action) {
-    return state.findIndex(state => state.productId === action.payload.productId);
+function findItemIndex(state, action) {
+    return state.findIndex(state => state.pid === action.payload.pid);
 }
 
 
@@ -10,7 +10,9 @@ const slice = createSlice({
     initialState: [],
     reducers: { 
         addProduct(state, action) {
-            let existingItem = findIndex(state, action);
+
+            let existingItem = findItemIndex(state, action);
+
             if (existingItem !== -1) {
                 state[existingItem].quantity += 1;
             }
@@ -19,17 +21,17 @@ const slice = createSlice({
             }
         },
         removeProduct(state, action) {
-            let existingItem = findIndex(state, action);
+            let existingItem = findItemIndex(state, action);
             state.splice(existingItem, 1);
         },
         addProductQuantity(state, action) {
-            let existingItem = findIndex(state, action);
+            let existingItem = findItemIndex(state, action);
             if (existingItem !== -1) {
                 state[existingItem].quantity += 1
             }
         },
         reduceProductQuantity(state, action) {
-            let existingItem = findIndex(state, action);
+            let existingItem = findItemIndex(state, action);
             if (existingItem !== -1) {
                 state[existingItem].quantity -= 1;
             }
