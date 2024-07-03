@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import Product from '../components/product.js';
 import { setProductList } from '../store/slice/productsSlice'
+import useFetch from '../hooks/useFetch.js';
 
 export default function Home () {
 
@@ -12,33 +13,15 @@ export default function Home () {
         return state.productList;
     })
 
-    useEffect(() => {
+    let [data, loading, error] = useFetch('https://fakestoreapi.com/products');
 
-        // Fetching data from API and seting data to middleware
-        const getProductList = async () => { 
-            
-            try {
-                
-                let response = await fetch('https://fakestoreapi.com/products');
+    
+    // Pushing product listing data to middleware
+    if(!loading && data && data.length > 0) {
+        console.log('loading', loading)
 
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-
-                let data = await response.json();
-
-                // pushing data to middleware
-                dispatch(setProductList(data));
-
-            }
-            catch(err) {
-                console.log(err);
-            }
-        }
-
-        getProductList();
-
-    }, []);
+        dispatch(setProductList(data));
+    }
 
     return (
         <>
