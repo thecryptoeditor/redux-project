@@ -1,27 +1,25 @@
-import React, { useEffect } from 'react';
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import Product from '../components/product.js';
-import { setProductList } from '../store/slice/productsSlice'
-import useFetch from '../hooks/useFetch.js';
+import { setProductList, setProductListError, setProductListStatus } from '../store/slice/productsSlice'
+import {useFetch} from '../hooks/useFetch.js';
 
-export default function Home () {
+export default function Home() {
 
     let dispatch = useDispatch();
 
-    let productList = useSelector((state) => {
-        return state.productList;
-    })
-
     let [data, loading, error] = useFetch('https://fakestoreapi.com/products');
 
-    
-    // Pushing product listing data to middleware
-    if(!loading && data && data.length > 0) {
-        console.log('loading', loading)
-
+    // Pushing product listing, error, and loading status to middleware
+    if(data && data.length > 0) {
         dispatch(setProductList(data));
     }
+    dispatch(setProductListError(error));
+    dispatch(setProductListStatus(loading));
+
+    let productList = useSelector((state) => state.productList && state.productList.list)
+    let errorState = useSelector((state) => state.productList.error)
+    let loadingState = useSelector((state) => state.productList.isLoading)
 
     return (
         <>
@@ -29,18 +27,20 @@ export default function Home () {
 
             <div className="product-listing">
                 <div>
-                    {
-                        productList.map(({id, title, rating, price, image}) => (
-                            <Product 
+                    { loadingState ? <h1>Loading...</h1> :
+                        productList.map(({ id, title, rating, price, image }) => (
+                            <Product
                                 key={id}
                                 pid={id}
-                                title={title} 
-                                rating={rating} 
+                                title={title}
+                                rating={rating}
                                 price={price}
                                 imageUrl={image}
                             />
                         ))
                     }
+
+                    { errorState ? <p>{errorState}</p> : `` }
                 </div>
             </div>
         </>
