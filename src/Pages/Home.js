@@ -1,8 +1,9 @@
 import Header from '../components/Header';
 import { useSelector, useDispatch } from 'react-redux';
 import Product from '../components/product.js';
-import { setProductList, setProductListError, setProductListStatus } from '../store/slice/productsSlice'
+import { getAllProducts, getProductError, getProductLoadingState, setProductList, setProductListError, setProductListStatus } from '../store/slice/productsSlice'
 import {useFetch} from '../hooks/useFetch.js';
+import { useEffect } from 'react';
 
 export default function Home() {
 
@@ -11,15 +12,15 @@ export default function Home() {
     let [data, loading, error] = useFetch('https://fakestoreapi.com/products');
 
     // Pushing product listing, error, and loading status to middleware
-    if(data && data.length > 0) {
+    useEffect(() => {
         dispatch(setProductList(data));
-    }
-    dispatch(setProductListError(error));
-    dispatch(setProductListStatus(loading));
+        dispatch(setProductListError(error));
+        dispatch(setProductListStatus(loading));
+    }, [data, loading, error, dispatch]);
 
-    let productList = useSelector((state) => state.productList && state.productList.list)
-    let errorState = useSelector((state) => state.productList.error)
-    let loadingState = useSelector((state) => state.productList.isLoading)
+    let productList = useSelector(getAllProducts);
+    let errorState = useSelector(getProductError);
+    let loadingState = useSelector(getProductLoadingState);
 
     return (
         <>

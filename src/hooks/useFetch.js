@@ -23,7 +23,6 @@ export const useFetch = (url) => {
                 
                 setApiResponse(data);
 
-                
             }
             catch(err) {
                 console.log(err);
