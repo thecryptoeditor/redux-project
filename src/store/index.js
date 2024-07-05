@@ -28,8 +28,9 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
             serializableCheck: false,
-        }),
-    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+            logger: logger
+        }
+    ).concat(logger),
 });
 
-export const persistor = persistStore(store)
+export const persistor = persistStore(store);

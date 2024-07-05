@@ -26,14 +26,14 @@ const slice = createSlice({
         },
         addProductQuantity(state, action) {
             let existingItem = findItemIndex(state, action);
-            if (existingItem !== -1) {
-                state[existingItem].quantity += 1
-            }
+            state[existingItem].quantity += 1
         },
         reduceProductQuantity(state, action) {
             let existingItem = findItemIndex(state, action);
-            if (existingItem !== -1) {
-                state[existingItem].quantity -= 1;
+            state[existingItem].quantity -= 1;
+
+            if(state[existingItem].quantity === 0) {
+                state.splice(existingItem, 1)
             }
         }
     }
