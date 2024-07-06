@@ -21,7 +21,7 @@ const slice = createSlice({
     }
 })
 
-
+// these called selector in RT
 export const getAllProducts = (state) => state.productList && state.productList.list;
 export const getProductError = (state) => state.productList && state.productList.error;
 export const getProductLoadingState = (state) => state.productList && state.productList.isLoading;
