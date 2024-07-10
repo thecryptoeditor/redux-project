@@ -1,9 +1,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { ADD_PRODUCT_QUANTITY, REDUCE_PRODUCT_QUANTITY } from '../store/cartReducer'
+import PropTypes from 'prop-types';
 
-export default function CartItem({ pid, title, rating, price, imageUrl, quantity }) {
-
+function CartItem({ pid, title, rating, price, imageUrl, quantity }) {
+    
     let dispatch = useDispatch();
 
     function decreaseItem(pid) {
@@ -33,3 +34,14 @@ export default function CartItem({ pid, title, rating, price, imageUrl, quantity
         </div>
     )
 }
+
+CartItem.propTypes = {
+    pid: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    rating: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    imageUrl: PropTypes.any.isRequired,
+    quantity: PropTypes.number.isRequired
+}
+
+export default CartItem;
