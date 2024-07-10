@@ -1,6 +1,6 @@
 import { ADD_PRODUCT } from '../store/cartReducer';
 import { useDispatch } from 'react-redux';
-
+import PropTypes from 'prop-types'
 
 export default function Product({ pid, title, rating, price, imageUrl }) {
 
@@ -27,3 +27,13 @@ export default function Product({ pid, title, rating, price, imageUrl }) {
         </div>
     )
 }
+
+Product.propTypes = {
+    pid: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    rating: PropTypes.object.isRequired,
+    price: PropTypes.number.isRequired,
+    imageUrl: PropTypes.any.isRequired
+}
+
+  
